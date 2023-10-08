@@ -13,14 +13,14 @@ export default async function Home() {
   const allNews = await getAllNews();
   const allTournaments = await getAllTournaments();
 
-  const allMatches = allTournaments.map(value => value['tournament-matches'].map(child => ({ "tournament-name": value['tournament-name'], ...child }))).flat()
-  const OngoingMatches = allMatches.filter(Item => { return (dayjs().isSame(dayjs(Item['match-time']), 'd')); })
-  const UpcomingMatches = allMatches.filter(Item => { return (dayjs().isBefore(dayjs(Item['match-time']))); }).sort((a, b) => (dayjs(a['match-time']).isAfter(dayjs(b['match-time'])) ? 1 : -1)).slice(0, 3);
-  const CompletedMatches = allMatches.filter(Item => { return (dayjs().isAfter(dayjs(Item['match-time']))); }).sort((a, b) => (dayjs(a['match-time']).isBefore(dayjs(b['match-time'])) ? 1 : -1)).slice(0, 3);
+  const allMatches = await allTournaments.map(value => value['tournament-matches'].map(child => ({ "tournament-name": value['tournament-name'], ...child }))).flat()
+  const OngoingMatches = await allMatches.filter(Item => { return (dayjs().isSame(dayjs(Item['match-time']), 'd')); })
+  const UpcomingMatches = await allMatches.filter(Item => { return (dayjs().isBefore(dayjs(Item['match-time']))); }).sort((a, b) => (dayjs(a['match-time']).isAfter(dayjs(b['match-time'])) ? 1 : -1)).slice(0, 3);
+  const CompletedMatches = await allMatches.filter(Item => { return (dayjs().isAfter(dayjs(Item['match-time']))); }).sort((a, b) => (dayjs(a['match-time']).isBefore(dayjs(b['match-time'])) ? 1 : -1)).slice(0, 3);
 
-  const OngoingTournaments = allTournaments.filter(Item => { return (dayjs().isSame(dayjs(Item['tournament-start-date']), 'd')); })
-  const UpcomingTournaments = allTournaments.filter(Item => { return (dayjs().isBefore(dayjs(Item['tournament-start-date']))); }).sort((a, b) => (dayjs(a['tournament-start-date']).isAfter(dayjs(b['tournament-start-date'])) ? 1 : -1)).slice(0, 3);
-  const CompletedTournaments = allTournaments.filter(Item => { return (dayjs().isAfter(dayjs(Item['tournament-start-date']))); }).sort((a, b) => (dayjs(a['tournament-start-date']).isBefore(dayjs(b['tournament-start-date'])) ? 1 : -1)).slice(0, 3);
+  const OngoingTournaments =  await allTournaments.filter(Item => { return (dayjs().isSame(dayjs(Item['tournament-start-date']), 'd')); })
+  const UpcomingTournaments = await allTournaments.filter(Item => { return (dayjs().isBefore(dayjs(Item['tournament-start-date']))); }).sort((a, b) => (dayjs(a['tournament-start-date']).isAfter(dayjs(b['tournament-start-date'])) ? 1 : -1)).slice(0, 3);
+  const CompletedTournaments = await allTournaments.filter(Item => { return (dayjs().isAfter(dayjs(Item['tournament-start-date']))); }).sort((a, b) => (dayjs(a['tournament-start-date']).isBefore(dayjs(b['tournament-start-date'])) ? 1 : -1)).slice(0, 3);
 
 
   return (
@@ -46,7 +46,7 @@ export default async function Home() {
           <div className='more-news flex flex-col gap-5'>
             <p className="tracking-widest text-[#BFC3C3]">MORE NEWS</p>
             <div className=" flex flex-col gap-1">
-              {allNews.slice(1, 9)
+              {allNews?.slice(1, 9)
                 .map((Item, index, { length }) => {
                   return (
                     <Link href={'/news/' + Item['news-serial']} key={Item['news-serial']}>
@@ -84,7 +84,7 @@ export default async function Home() {
               <span className='text-2xl font-bold'>Matches</span>
             </div>
             <div className='flex flex-col gap-1'>
-              {[...OngoingMatches, ...UpcomingMatches, ...CompletedMatches].map((Item, index, { length }) => {
+              {[...OngoingMatches, ...UpcomingMatches, ...CompletedMatches]?.map((Item, index, { length }) => {
                 return (
                   <Link href={'/matches/' + Item['match-serial']} key={Item['match-serial']}>
                     <div className={cn('flex flex-row gap-2 bg-[#2C2C2C] py-4 px-4 hover:bg-[#353535] items-center justify-between', (length === 1 ? 'rounded-lg' : (index === 0 ? 'rounded-t-lg' : index === length - 1 ? 'rounded-b-lg' : '')))}>
