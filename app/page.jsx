@@ -12,21 +12,22 @@ export default async function Home() {
 
   const allNews = await getAllNews();
   const allTournaments = await getAllTournaments();
-  const allMatches = allTournaments.data.map(value => value['tournament-matches'].map(child => ({ "tournament-name": value['tournament-name'], ...child }))).flat()
+
+  const allMatches = allTournaments.map(value => value['tournament-matches'].map(child => ({ "tournament-name": value['tournament-name'], ...child }))).flat()
   const OngoingMatches = allMatches.filter(Item => { return (dayjs().isSame(dayjs(Item['match-time']), 'd')); })
   const UpcomingMatches = allMatches.filter(Item => { return (dayjs().isBefore(dayjs(Item['match-time']))); }).sort((a, b) => (dayjs(a['match-time']).isAfter(dayjs(b['match-time'])) ? 1 : -1)).slice(0, 3);
   const CompletedMatches = allMatches.filter(Item => { return (dayjs().isAfter(dayjs(Item['match-time']))); }).sort((a, b) => (dayjs(a['match-time']).isBefore(dayjs(b['match-time'])) ? 1 : -1)).slice(0, 3);
 
-  const OngoingTournaments = allTournaments.data.filter(Item => { return (dayjs().isSame(dayjs(Item['tournament-start-date']), 'd')); })
-  const UpcomingTournaments = allTournaments.data.filter(Item => { return (dayjs().isBefore(dayjs(Item['tournament-start-date']))); }).sort((a, b) => (dayjs(a['tournament-start-date']).isAfter(dayjs(b['tournament-start-date'])) ? 1 : -1)).slice(0, 3);
-  const CompletedTournaments = allTournaments.data.filter(Item => { return (dayjs().isAfter(dayjs(Item['tournament-start-date']))); }).sort((a, b) => (dayjs(a['tournament-start-date']).isBefore(dayjs(b['tournament-start-date'])) ? 1 : -1)).slice(0, 3);
+  const OngoingTournaments = allTournaments.filter(Item => { return (dayjs().isSame(dayjs(Item['tournament-start-date']), 'd')); })
+  const UpcomingTournaments = allTournaments.filter(Item => { return (dayjs().isBefore(dayjs(Item['tournament-start-date']))); }).sort((a, b) => (dayjs(a['tournament-start-date']).isAfter(dayjs(b['tournament-start-date'])) ? 1 : -1)).slice(0, 3);
+  const CompletedTournaments = allTournaments.filter(Item => { return (dayjs().isAfter(dayjs(Item['tournament-start-date']))); }).sort((a, b) => (dayjs(a['tournament-start-date']).isBefore(dayjs(b['tournament-start-date'])) ? 1 : -1)).slice(0, 3);
 
 
   return (
     <div className='grid grid-cols-12 rounded-lg gap-4'>
       <div className='col-span-8 rounded-lg'>
         <div className="flex flex-col w-full gap-8">
-          <Link href={'news/' + allNews.data[0]['news-serial']}>
+          <Link href={'news/' + allNews[0]['news-serial']}>
             <div className='banner flex flex-col bg-cover h-[25vw] rounded-lg' style={{ backgroundImage: `url(${newsHeader.src})` }}>
               <div className="flex-1 ml-6 mt-6 tracking-widest font-bold text-[#BFC3C3]">LATEST NEWS
               </div>
@@ -36,8 +37,8 @@ export default async function Home() {
                   <path d="M16.0181 24.5C15.813 24.8536 15.5186 25.1471 15.1644 25.3511C14.8102 25.5551 14.4086 25.6625 13.9998 25.6625C13.591 25.6625 13.1894 25.5551 12.8352 25.3511C12.481 25.1471 12.1866 24.8536 11.9814 24.5" stroke="#F1E809" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
                 <div className="flex flex-col ml-4">
-                  <p className=" font-bold text-2xl">{allNews.data[0]['news-heading']}</p>
-                  <p className="font-semibold text-[#686868] ">Published {dayjs(allNews.data[0]['news-date']).format('HH:MM')} IST, {dayjs(allNews.data[0]['news-date']).format('DD.MM.YY')}</p>
+                  <p className=" font-bold text-2xl">{allNews[0]['news-heading']}</p>
+                  <p className="font-semibold text-[#686868] ">Published {dayjs(allNews[0]['news-date']).format('HH:MM')} IST, {dayjs(allNews[0]['news-date']).format('DD.MM.YY')}</p>
                 </div>
               </div>
             </div>
@@ -45,7 +46,7 @@ export default async function Home() {
           <div className='more-news flex flex-col gap-5'>
             <p className="tracking-widest text-[#BFC3C3]">MORE NEWS</p>
             <div className=" flex flex-col gap-1">
-              {allNews.data.slice(1, 9)
+              {allNews.slice(1, 9)
                 .map((Item, index, { length }) => {
                   return (
                     <Link href={'/news/' + Item['news-serial']} key={Item['news-serial']}>
