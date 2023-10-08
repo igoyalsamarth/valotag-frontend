@@ -1,4 +1,5 @@
-[{
+{
+"data" : [{
     "tournament-serial" : 5,
     "tournament-name": "VCL SA 2023: Split 1",
     "tournament-logo": "",
@@ -89,3 +90,4 @@
         "match-time": "2023-08-22T12:00:00.000Z"
     }]
 }]
+    }

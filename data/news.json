@@ -1,4 +1,5 @@
-[{
+{
+"data" : [{
     "news-serial" : 6,
     "news-heading": "Crowd angers as GE bouts out of LCQ",
     "news-subheading": "Very Angry",
@@ -47,3 +48,4 @@
     "news-date": "2022-01-09T07:00:00.000Z",
     "news-description": "The pinoy crowd seems to be boiling with anger as the representative loose their game which inturn lead to them being out of the tournament."
 }]
+}
