@@ -10,9 +10,9 @@ import { getAllTournaments } from '@/lib/tournament';
 
 export default async function Home() {
 
-  //const allNews = await getAllNews();
-  const allTournaments = await getAllTournaments();
-  console.log(allTournaments)
+  const allNews = await getAllNews();
+  //const allTournaments = await getAllTournaments();
+  console.log(allNews.data)
   /*
   const allMatches = await allTournaments.map(value => value['tournament-matches'].map(child => ({ "tournament-name": value['tournament-name'], ...child }))).flat()
   const OngoingMatches = await allMatches.filter(Item => { return (dayjs().isSame(dayjs(Item['match-time']), 'd')); })
