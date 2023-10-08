@@ -4,7 +4,7 @@ export default function Searchbar() {
 
   return (
     <div className={`flex p-4 bg-[#2C2C2C] h-full rounded-lg items-center justify-between`}>
-      <button className='bg-[#252525] rounded-lg w-52 flex items-center p-2'>
+      <button className='bg-[#252525] rounded-lg w-52 flex items-center p-2 gap-1'>
         <SearchIcon className='m-1'/>
         Search
       </button>
