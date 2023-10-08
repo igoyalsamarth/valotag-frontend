@@ -8,7 +8,9 @@ dayjs.extend(relativeTime)
 import cn from 'classnames';
 import { getAllTournaments } from '@/lib/tournament';
 
-export default async function Home() {
+export const runtime = "edge"
+
+export default async function Page() {
 
   const allNews = await getAllNews();
   //const allTournaments = await getAllTournaments();
