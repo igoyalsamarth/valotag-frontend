@@ -3,5 +3,5 @@ import news from '@/data/news.json'
 import { NextResponse } from 'next/server'
 
 export async function GET(request) {
-  return NextResponse.json({data: news.data})
+  return new NextResponse(JSON.stringify(news.data))
 }
