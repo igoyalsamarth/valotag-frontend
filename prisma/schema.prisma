@@ -1,0 +1,17 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Tournaments{
+  id                    Int         @id @default(autoincrement())
+  tournament_organiser  String
+  prizepool             Int         
+  tournament_type       String
+  start_date            DateTime    
+  end_date              DateTime    
+}
