@@ -8,7 +8,7 @@ export async function GET(request) {
   } catch (error) {
     return new Response(error.message, {status:500});
   }
-  return new Response(JSON.stringify(tournaments));
+  return NextResponse.json({data: tournaments});
 }
 
 export async function POST(request) {
