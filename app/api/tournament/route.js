@@ -6,9 +6,9 @@ export async function GET(request) {
   try{
   tournaments = await prisma.tournaments.findMany();
   } catch (error) {
-    return new Response(error.message, {status:500});
+    return new NextResponse(error.message, {status:500});
   }
-  return NextResponse.json({data: tournaments});
+  return NextResponse.json(tournaments);
 }
 
 export async function POST(request) {
@@ -17,10 +17,10 @@ export async function POST(request) {
     const tournament = await prisma.tournaments.create({
       data: json,
     });
-    return new NextResponse(JSON.stringify(tournament), {
+    return NextResponse.json(tournament), {
       status: 201,
       headers: { "Content-Type": "application/json" },
-    });
+    };
   } catch (error) {
     if (error.code === "P2002") {
       return new NextResponse("Something went rong", { status: 409 });
