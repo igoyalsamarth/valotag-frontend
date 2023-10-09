@@ -12,6 +12,8 @@ export default async function Home() {
 
  // const allNews = await getAllNews();
   const allTournaments = await getAllTournaments();
+  console.log(allTournaments)
+
   //const allMatches = await allTournaments.map(value => value['tournament-matches'].map(child => ({ "tournament-name": value['tournament-name'], ...child }))).flat()
   //const OngoingMatches = await allMatches.filter(Item => { return (dayjs().isSame(dayjs(Item['match-time']), 'd')); })
   //const UpcomingMatches = await allMatches.filter(Item => { return (dayjs().isBefore(dayjs(Item['match-time']))); }).sort((a, b) => (dayjs(a['match-time']).isAfter(dayjs(b['match-time'])) ? 1 : -1)).slice(0, 3);
@@ -37,7 +39,7 @@ export default async function Home() {
             <span className='text-2xl font-bold'>Tournaments</span>
           </div>
           <div className='flex flex-col gap-1'>
-            {[...OngoingTournaments, ...UpcomingTournaments, ...CompletedTournaments].map((Item, index, { length }) => {
+            {[...OngoingTournaments, ...UpcomingTournaments, ...CompletedTournaments]?.map((Item, index, { length }) => {
               return (
                 <Link href={'/tournament/' + Item['tournament_organiser']} key={Item['id']}>
                   <div className={cn('flex flex-row gap-2 bg-[#2C2C2C] py-4 px-4 hover:bg-[#353535] items-center justify-between', (length === 1 ? 'rounded-lg' : (index === 0 ? 'rounded-t-lg' : index === length - 1 ? 'rounded-b-lg' : '')))}>

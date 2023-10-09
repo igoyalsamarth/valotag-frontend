@@ -6,7 +6,7 @@ export async function GET(request) {
   try{
   tournaments = await prisma.tournaments.findMany();
   } catch (error) {
-    return new NextResponse(error.message, {status:500});
+    return new Response(error.message, {status:500});
   }
   return new Response(JSON.stringify(tournaments));
 }
