@@ -1,8 +1,6 @@
 import prisma from '@/lib/prisma'
 import { NextResponse } from 'next/server'
 
-export const dynamic = 'force-dynamic';
-
 export async function GET(request) {
   let tournaments;
   try{
@@ -10,7 +8,7 @@ export async function GET(request) {
   } catch (error) {
     return new NextResponse(error.message, {status:500});
   }
-  return new NextResponse(JSON.stringify(tournaments));
+  return new Response(JSON.stringify(tournaments));
 }
 
 export async function POST(request) {
