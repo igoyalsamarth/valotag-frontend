@@ -9,7 +9,7 @@ export async function GET(request) {
   } catch (error) {
     return new NextResponse(error.message, {status:500});
   }
-  return NextResponse.json(tournaments);
+  return new NextResponse(JSON.stringify(tournaments));
 }
 
 export async function POST(request) {
