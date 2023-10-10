@@ -17,10 +17,11 @@ export async function POST(request) {
     const tournament = await prisma.tournaments.create({
       data: json,
     });
-    return NextResponse.json(tournament), {
+    console.log(tournament)
+    return new NextResponse(JSON.stringify(tournament), {
       status: 201,
       headers: { "Content-Type": "application/json" },
-    };
+    });
   } catch (error) {
     if (error.code === "P2002") {
       return new NextResponse("Something went rong", { status: 409 });

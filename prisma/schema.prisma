@@ -12,6 +12,19 @@ model Tournaments{
   tournament_organiser  String
   prizepool             Int         
   tournament_type       String
-  start_date            DateTime    
-  end_date              DateTime    
+  start_date            DateTime?   
+  end_date              DateTime?    
+  matches               Matches[]  
+}
+
+model Matches{
+  id                    Int           @id @default(autoincrement())
+  tournament            Tournaments   @relation(fields: [tournamentId], references: [id])
+  tournamentId          Int           @map("tournament_id")
+  match_date            DateTime?      @db.Date
+  match_time            DateTime?      @db.Time()
+  team_one              String
+  team_two              String
+  match_position        String
+
 }
