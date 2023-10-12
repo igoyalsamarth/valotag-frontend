@@ -3,10 +3,10 @@ import dayjs from 'dayjs';
 import isBetween from 'dayjs/plugin/isBetween'
 dayjs.extend(isBetween)
 import Link from "next/link";
+import cn from 'classnames';
 
 export default async function Page() {
     const allTournaments = await getAllTournaments();
-    console.log(allTournaments)
 
     return (
         <div className="flex flex-col">
@@ -18,7 +18,7 @@ export default async function Page() {
             </div>
             <div className="flex flex-col">
                 <p className='tracking-widest text-[#BFC3C3]'>ONGOING</p>
-                <div className="flex flex-col mt-4">
+                <div className="flex flex-col mt-4 gap-1">
                     {allTournaments
                         .filter((Item) => {
                             return (dayjs().isBetween(Item['start_date'], Item['end_date'], null, '()'));
@@ -26,7 +26,7 @@ export default async function Page() {
                         .map((Item, index, { length }) => {
                             return (
                                 <Link href={"tournaments/" + Item['id']} key={Item['id']}>
-                                    <div className={`flex flex-row bg-[#2C2C2C] p-6 gap-4 hover:bg-[#353535] ${(length === 1 ? 'rounded-lg' : (index === 0 ? 'rounded-t-lg mb-0.5' : index === length - 1 ? 'rounded-b-lg mt-0.5' : 'my-0.5'))}`}>
+                                    <div className={cn('flex flex-row gap-4 bg-[#2C2C2C] p-6 hover:bg-[#353535] items-center', (length === 1 ? 'rounded-lg' : (index === 0 ? 'rounded-t-lg' : index === length - 1 ? 'rounded-b-lg' : '')))}>
                                         <div className="self-center bg-[#393939] w-[4.5vw] h-[4.5vw] p-4 rounded-lg">
                                             <img src='/masters.png' alt='logo'></img>
                                         </div>
@@ -45,7 +45,7 @@ export default async function Page() {
             </div>
             <div className="flex flex-col mt-9">
                 <p className='tracking-widest text-[#BFC3C3]'>UPCOMING</p>
-                <div className="flex flex-col mt-4">
+                <div className="flex flex-col mt-4 gap-1">
                     {allTournaments
                         .filter((Item) => {
                             return (dayjs().isBefore(Item['start_date']));
@@ -53,34 +53,7 @@ export default async function Page() {
                         .map((Item, index, { length }) => {
                             return (
                                 <Link href={"tournaments/" + Item['id']} key={Item['id']}>
-                                    <div className={`flex flex-row bg-[#2C2C2C] p-6 gap-4 hover:bg-[#353535] ${(length === 1 ? 'rounded-lg' : (index === 0 ? 'rounded-t-lg mb-0.5' : index === length - 1 ? 'rounded-b-lg mt-0.5' : 'my-0.5'))}`}>
-                                        <div className="self-center bg-[#393939] w-[4.5vw] h-[4.5vw] p-4 rounded-lg">
-                                            <img src='/masters.png' alt='logo'></img>
-                                        </div>
-                                        <div className='flex flex-col py-3 justify-between'>
-                                            <p className='flex text-lg font-semibold'>{Item["tournament_organiser"]}</p>
-                                            <div className='flex flex-row gap-10'>
-                                                <p className='flex text-[#686868] font-semibold'>₹{Item["prizepool"]}</p>
-                                                <p className='text-[#686868] font-semibold'>{dayjs(Item["start_date"]).format('MMM DD')} - {dayjs(Item["end_date"]).format('MMM DD')}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </Link>
-                            );
-                        })}
-                </div>
-            </div>
-            <div className="flex flex-col mt-9">
-                <p className='tracking-widest text-[#BFC3C3]'>COMPLETED</p>
-                <div className="flex flex-col mt-4">
-                    {allTournaments
-                        .filter((Item) => {
-                            return (dayjs().isAfter(Item['end_date']));
-                        })
-                        .map((Item, index, { length }) => {
-                            return (
-                                <Link href={"tournaments/" + Item['id']} key={Item['id']}>
-                                    <div className={`flex flex-row bg-[#2C2C2C] p-6 gap-4 hover:bg-[#353535] ${(length === 1 ? 'rounded-lg' : (index === 0 ? 'rounded-t-lg mb-0.5' : index === length - 1 ? 'rounded-b-lg mt-0.5' : 'my-0.5'))}`}>
+                                    <div className={cn('flex flex-row gap-4 bg-[#2C2C2C] p-6 hover:bg-[#353535] items-center', (length === 1 ? 'rounded-lg' : (index === 0 ? 'rounded-t-lg' : index === length - 1 ? 'rounded-b-lg' : '')))}>
                                         <div className="self-center bg-[#393939] w-[4.5vw] h-[4.5vw] p-4 rounded-lg">
                                             <img src='/masters.png' alt='logo'></img>
                                         </div>
@@ -97,7 +70,32 @@ export default async function Page() {
                         })}
                 </div>
             </div>
-            <div className='flex justify-center align-center mt-6'>
+            <div className="flex flex-col mt-9">
+                <p className='tracking-widest text-[#BFC3C3]'>COMPLETED</p>
+                <div className="flex flex-col mt-4 gap-1">
+                    {allTournaments
+                        .filter((Item) => {
+                            return (dayjs().isAfter(Item['end_date']));
+                        })
+                        .map((Item, index, { length }) => {
+                            return (
+                                <Link href={"tournaments/" + Item['id']} key={Item['id']}>
+                                    <div className={cn('flex flex-row gap-4 bg-[#2C2C2C] p-6 hover:bg-[#353535] items-center', (length === 1 ? 'rounded-lg' : (index === 0 ? 'rounded-t-lg' : index === length - 1 ? 'rounded-b-lg' : '')))}>
+                                        <div className="self-center bg-[#393939] w-[4.5vw] h-[4.5vw] p-4 rounded-lg">
+                                            <img src='/masters.png' alt='logo'></img>
+                                        </div>
+                                        <div className='flex flex-col py-3'>
+                                            <p className='flex justify-between text-lg font-semibold'>{Item["tournament_organiser"]}</p>
+                                            <div className='flex flex-row gap-10'>
+                                                <p className='flex text-[#686868] font-semibold'>₹{Item["prizepool"]}</p>
+                                                <p className='text-[#686868] font-semibold'>{dayjs(Item["start_date"]).format('MMM DD')} - {dayjs(Item["end_date"]).format('MMM DD')}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Link>
+                            );
+                        })}
+                </div>
             </div>
         </div>
     );

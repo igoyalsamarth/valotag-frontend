@@ -4,8 +4,8 @@ CREATE TABLE "Tournaments" (
     "tournament_organiser" TEXT NOT NULL,
     "prizepool" INTEGER NOT NULL,
     "tournament_type" TEXT NOT NULL,
-    "start_date" TIMESTAMP(3) NOT NULL,
-    "end_date" TIMESTAMP(3) NOT NULL,
+    "start_date" TIMESTAMP(3),
+    "end_date" TIMESTAMP(3),
 
     CONSTRAINT "Tournaments_pkey" PRIMARY KEY ("id")
 );
@@ -14,8 +14,8 @@ CREATE TABLE "Tournaments" (
 CREATE TABLE "Matches" (
     "id" SERIAL NOT NULL,
     "tournament_id" INTEGER NOT NULL,
-    "match_date" DATE NOT NULL,
-    "match_time" TIME NOT NULL,
+    "match_date" DATE,
+    "match_time" TIME,
     "team_one" TEXT NOT NULL,
     "team_two" TEXT NOT NULL,
     "match_position" TEXT NOT NULL,

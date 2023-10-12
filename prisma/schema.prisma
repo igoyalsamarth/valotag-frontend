@@ -26,5 +26,4 @@ model Matches{
   team_one              String
   team_two              String
   match_position        String
-
 }
