@@ -4,18 +4,20 @@ import isBetween from 'dayjs/plugin/isBetween'
 dayjs.extend(isBetween)
 import Link from "next/link";
 import cn from 'classnames';
+import AddTournament from "@/components/addTournamentModal";
 
-export default async function Page() {
+export default async function Page({searchParams}) {
     const allTournaments = await getAllTournaments();
+    const addTournament = searchParams;
 
     return (
         <div className="flex flex-col">
-            <div className='mb-9 flex flex-row gap-4 justify-center align-middle items-center bg-[#393939] rounded-lg p-6 hover:bg-[#353535]'>
+            <Link href='/tournaments/?addTournament=true' className='mb-9 flex flex-row gap-4 justify-center align-middle items-center bg-[#393939] rounded-lg p-6 hover:bg-[#353535]'>
                 <svg xmlns="http://www.w3.org/2000/svg" width="33" height="32" viewBox="0 0 33 32" fill="none">
                     <path d="M24.5 16H8.5M16.5 24L16.5 8" stroke="white" strokeWidth="1.65" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
                 <p className='text-lg font-semibold text-center'> Add tournaments</p>
-            </div>
+            </Link>
             <div className="flex flex-col">
                 <p className='tracking-widest text-[#BFC3C3]'>ONGOING</p>
                 <div className="flex flex-col mt-4 gap-1">
@@ -97,6 +99,7 @@ export default async function Page() {
                         })}
                 </div>
             </div>
+            {addTournament.addTournament && <AddTournament />}
         </div>
     );
 }

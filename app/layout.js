@@ -1,7 +1,6 @@
 import Navbar from '@/components/navbar'
 import './globals.css'
 import { Inter } from 'next/font/google'
-import { Grid } from '@mui/material'
 import Searchbar from '@/components/searchbar'
 import Logo from '@/components/logo'
 import Footer from '@/components/footer'
